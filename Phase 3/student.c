@@ -13,7 +13,7 @@ int readStudentDataFromCSV(const char *filename, struct Student students[]) {
     int numStudents = 0;
     char line[256]; // Assuming maximum line length
 
-    // Skip the first two header lines
+    // Skip the first header lines
     fgets(line, sizeof(line), file); // Skip Roll Number, Student name, ISA1, ..., ESA
     while (fgets(line, sizeof(line), file)) {
         char *token;
@@ -94,8 +94,6 @@ void writeStudentDataToCSV(const char *filename, struct Student students[], int 
         fprintf(file, "ESA_Subject%d,", j + 1);
     }
     fprintf(file, "\n");
-
-    // Write data rows
     for (int i = 0; i < *numStudents; i++) {
         fprintf(file, "%d,%s,", students[i].rollNumber, students[i].name);
         for (int j = 0; j < NUM_SUBJECTS; j++) {
@@ -230,10 +228,18 @@ void deleteStudent(struct Student students[], int *numStudents) {
     }
     (*numStudents)--;
 
-    // Write updated student data to CSV file
-    writeStudentDataToCSV("studentdata.csv", students, &(*numStudents));
-}
+    // Debugging information
+    printf("Debug: Writing updated data to CSV file.\n");
+    FILE *file = fopen("studentdata.csv", "w");
+    if (file == NULL) {
+        perror("Error opening file");
+        return;
+    }
+    fclose(file);
 
+    // Write updated student data to CSV file
+    writeStudentDataToCSV("studentdata.csv", students, numStudents);
+}
 void viewFinalGradeCardOfStudent(struct Student students[], int numStudents) {
     int rollNumber;
     printf("Enter the roll number of the student to view final grade card: ");
