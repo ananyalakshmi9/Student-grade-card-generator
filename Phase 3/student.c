@@ -52,29 +52,7 @@ int readStudentDataFromCSV(const char *filename, struct Student students[]) {
     return numStudents;
 }
 
-/*void writeStudentDataToCSV(const char *filename, struct Student students[], int *numStudents) {
-    FILE *file = fopen(filename, "w");
-    if (file == NULL) {
-        perror("Error opening file");
-        return;
-    }
 
-    for (int i = 0; i < *numStudents; i++) {
-        fprintf(file, "%d,%s,", students[i].rollNumber, students[i].name);
-        for (int j = 0; j < NUM_SUBJECTS; j++) {
-            fprintf(file, "%d,", students[i].isa1[j]);
-        }
-        for (int j = 0; j < NUM_SUBJECTS; j++) {
-            fprintf(file, "%d,", students[i].isa2[j]);
-        }
-        for (int j = 0; j < NUM_SUBJECTS; j++) {
-            fprintf(file, "%d,", students[i].ESA[j]);
-        }
-        fprintf(file, "\n");
-    }
-
-    fclose(file);
-}*/
 void writeStudentDataToCSV(const char *filename, struct Student students[], int *numStudents) {
     FILE *file = fopen(filename, "w");
     if (file == NULL) {
